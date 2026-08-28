@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import VoiceDock from '../components/VoiceDock';
 
 export const metadata: Metadata = {
   title: '海龟汤 · 在线游戏',
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="zh-CN"><body>{children}</body></html>;
+  return <html lang="zh-CN"><body>{children}<VoiceDock /></body></html>;
 }
