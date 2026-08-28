@@ -10,12 +10,13 @@ export default function VoiceDock() {
     const update = () => {
       const code = localStorage.getItem('turtle-code');
       const playerId = localStorage.getItem('turtle-player');
-      setIdentity(code && playerId ? { code, playerId } : undefined);
+      const inRoom = Boolean(document.querySelector('section.bg-slate-900'));
+      setIdentity(inRoom && code && playerId ? { code, playerId } : undefined);
     };
     update();
     const timer = window.setInterval(update, 500);
     return () => window.clearInterval(timer);
   }, []);
 
-  return identity ? <VoicePanel code={identity.code} playerId={identity.playerId} /> : null;
+  return identity ? <VoicePanel code={identity.code} playerId={identity.playerId} nickname={localStorage.getItem('turtle-name') || undefined} /> : null;
 }
