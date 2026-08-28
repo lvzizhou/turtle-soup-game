@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { getRoom } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 // This intentionally exposes only data visible to players; the answer stays server-only.
 export async function GET(_: Request, { params }: { params: { code: string } }) {
   if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
@@ -9,7 +12,7 @@ export async function GET(_: Request, { params }: { params: { code: string } }) 
     if (dbRoom) {
       const { data: players } = await supabase.from('players').select('id,nickname,is_host').eq('room_id', dbRoom.id);
       const story = dbRoom.story_data as any;
-      return NextResponse.json({ room: { id: dbRoom.id, code: dbRoom.room_code, hostId: dbRoom.host_player_id, status: dbRoom.status, theme: dbRoom.theme, difficulty: dbRoom.difficulty, hintIndex: 0, players: (players || []).map(p => ({ id:p.id, nickname:p.nickname, isHost:p.is_host })), publicSurface: dbRoom.public_surface, revealedStory: dbRoom.status === 'finished' ? story : undefined, hasStory: Boolean(story) } });
+      return NextResponse.json({ room: { id: dbRoom.id, code: dbRoom.room_code, hostId: dbRoom.host_player_id, status: dbRoom.status, theme: dbRoom.theme, difficulty: dbRoom.difficulty, hintIndex: 0, players: (players || []).map(p => ({ id:p.id, nickname:p.nickname, isHost:p.is_host })), publicSurface: dbRoom.public_surface, revealedStory: dbRoom.status === 'finished' ? story : undefined, hasStory: Boolean(story) } }, { headers: { 'Cache-Control': 'no-store, max-age=0' } });
     }
   }
   const room = getRoom(params.code);
