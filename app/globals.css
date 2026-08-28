@@ -35,4 +35,9 @@ section { box-shadow: 0 18px 45px rgba(15, 23, 42, .3); }
 .voice-leave { background: #fb7185; }
 .voice-icon-off { background: #475569; filter: saturate(.45); }
 .voice-error { position: absolute; top: calc(100% + 7px); right: 0; width: max-content; max-width: 240px; padding: 6px 9px; border-radius: 8px; background: #7f1d1d; color: #fecaca; }
+.player-list { margin-bottom: 16px; padding: 14px 16px; border: 1px solid rgba(125,211,252,.3); border-radius: 16px; background: rgba(15,23,42,.72); }
+.player-list-title { margin-bottom: 9px; color: #67e8f9; font-weight: 700; }
+.player-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; color: #e2e8f0; }
+.player-row code { margin-left: auto; color: #94a3b8; font-size: 11px; }
+.player-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 8px #4ade80; }
 @media (max-width: 640px) { .voice-panel { top: 12px; right: 12px; } .voice-status { display: none; } }
