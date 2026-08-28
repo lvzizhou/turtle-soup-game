@@ -23,5 +23,5 @@ export default function VoiceDock() {
     return () => window.clearInterval(timer);
   }, []);
 
-  return identity ? <VoicePanel code={identity.code} playerId={identity.playerId} nickname={nickname} /> : null;
+  return identity ? <VoicePanel key={`${identity.code}:${identity.playerId}:${nickname || 'loading'}`} code={identity.code} playerId={identity.playerId} nickname={nickname || '玩家'} /> : null;
 }
