@@ -1,0 +1,3 @@
+import { NextResponse } from 'next/server';
+import { AccessToken } from 'livekit-server-sdk';
+export async function POST(req: Request) { try { const { room, identity, name } = await req.json(); const key=process.env.LIVEKIT_API_KEY, secret=process.env.LIVEKIT_API_SECRET; if(!room||!identity)return NextResponse.json({error:'缺少语音身份'},{status:400}); if(!key||!secret)return NextResponse.json({error:'语音服务尚未配置，请设置 LiveKit 环境变量'},{status:503}); const token=new AccessToken(key,secret,{identity,name:name||identity,ttl:'2h'}); token.addGrant({roomJoin:true,room,canPublish:true,canSubscribe:true}); return NextResponse.json({token:await token.toJwt(),url:process.env.LIVEKIT_URL||''}); } catch(e:any){return NextResponse.json({error:e.message||'语音连接失败'},{status:400});} }
